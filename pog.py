@@ -33,7 +33,7 @@ exceptions = {"index.html",  # all pages to ignore when building blog
               }
 pages = [] # other pages to show on the navbar
 
-tildeMode = True  # just a failsafe feature cause sometimes tilde.team bugs out with the editing, this forces nvim
+tildeMode = False  # just a failsafe feature cause sometimes tilde.team bugs out with the editing, this forces nvim
 
 def update():
   with open("index.html", "w") as f:
