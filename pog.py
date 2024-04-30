@@ -22,7 +22,7 @@ author = "flat"  # i think all options except maybe the last few are pretty self
 contact = "flat@fuckup.club"
 website = "https://tilde.team/~flat/"
 bloglink = "https://tilde.team/~flat/blog/"
-description = 'will probably never use this but whatever.'
+description = 'will probably never use this but whatever.<br>built using <a href="https://github.com/flatfuzzball/pog/">pog.</a>'
 title = author + "'s blog"
 header = f'<h1><a href="index.html">{title}</a></h1>'
 footer = f'<hr><p>anything to say? <a href="mailto:{contact}?subject=in%20response%20to...">email me!</a><br><em>written by <a href="{website}">{author}</a> - generated with pog!</p>'
@@ -33,7 +33,7 @@ exceptions = {"index.html",  # all pages to ignore when building blog
               }
 pages = [] # other pages to show on the navbar
 
-tildeMode = False  # just a failsafe feature cause sometimes tilde.team bugs out with the editing, this forces nvim
+tildeMode = True  # just a failsafe feature cause sometimes tilde.team bugs out with the editing, this forces nvim
 
 def update():
   with open("index.html", "w") as f:
@@ -123,7 +123,10 @@ match args.option:
           print("file removed")
 
     case "edit":
-      subprocess.call(("xdg-open", f'drafts/{args.name}.md'))
+      if tildeMode is False:
+        subprocess.call(("xdg-open", f'drafts/{args.name}.md'))
+      else:
+        subprocess.call(("nvim", f'drafts/{args.name}.md'))
       opt = input("post written, what do you want to do now?\n(s) save draft (p) post (d) discard post\n> ")
       match opt:
         case "s":
