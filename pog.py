@@ -124,7 +124,10 @@ match args.option:
           print("file removed")
 
     case "edit":
-      subprocess.call(("xdg-open", f'drafts/{args.name}.md'))
+      if tildeMode is False:
+        subprocess.call(("xdg-open", f'drafts/{args.name}.md'))
+      else:
+        subprocess.call(("nvim", f'drafts/{args.name}.md'))
       opt = input("post written, what do you want to do now?\n(s) save draft (p) post (d) discard post\n> ")
       match opt:
         case "s":
