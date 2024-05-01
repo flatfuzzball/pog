@@ -1,4 +1,6 @@
 # pog
+**p**ython **b**log
+
 very basic, ugly and buggy ssg/blogging engine to suit my own needs
 
 my 'instance' is running [here](https://tilde.team/~flat/blog)
