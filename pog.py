@@ -22,16 +22,17 @@ author = "flat"  # i think all options except maybe the last few are pretty self
 contact = "flat@fuckup.club"
 website = "https://tilde.team/~flat/"
 bloglink = "https://tilde.team/~flat/blog/"
-description = 'will probably never use this but whatever.<br>built using <a href="https://github.com/flatfuzzball/pog/">pog.</a>'
+description = 'infrequent rambles about whatever i really feel like thinking about at the moment.'
 title = author + "'s blog"
 header = f'<h1><a href="index.html">{title}</a></h1>'
 footer = f'<hr><p>anything to say? <a href="mailto:{contact}?subject=in%20response%20to...">email me!</a><br><em>written by <a href="{website}">{author}</a> - generated with pog!</p>'
 dateformat = '%Y-%m-%d'
 exceptions = {"index.html",  # all pages to ignore when building blog
               "pog.py",
-              "atom.xml"
+              "atom.xml",
+              "README.md"
               }
-pages = [] # other pages to show on the navbar
+pages = ["../index.html", "atom.xml"] # other pages to show on the navbar
 
 tildeMode = True  # just a failsafe feature cause sometimes tilde.team bugs out with the editing, this forces nvim
 
@@ -40,7 +41,7 @@ def update():
     f.write(f'<h1>{title}</h1>')
     for page in pages:
       f.write(f'<li><a href="{page}">{Path(page).stem}</a></li>')
-    f.write(f'<p>{description}<br><a href="{bloglink}atom.xml">rss</a></p>')
+    f.write(f'<p>{description}</p>')
     f.write('<h3>posts:</h3>')
   files = (os.listdir("drafts/"))
   files = ((os.stat(f'drafts/{path}'), path) for path in files)
@@ -123,10 +124,7 @@ match args.option:
           print("file removed")
 
     case "edit":
-      if tildeMode is False:
-        subprocess.call(("xdg-open", f'drafts/{args.name}.md'))
-      else:
-        subprocess.call(("nvim", f'drafts/{args.name}.md'))
+      subprocess.call(("xdg-open", f'drafts/{args.name}.md'))
       opt = input("post written, what do you want to do now?\n(s) save draft (p) post (d) discard post\n> ")
       match opt:
         case "s":
